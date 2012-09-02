@@ -1,0 +1,29 @@
+<h1>Listing tutoring_sessions</h1>
+
+<table>
+  <tr>
+    <th>Start time</th>
+    <th>End time</th>
+    <th>Date</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @tutoring_sessions.each do |tutoring_session| %>
+  <tr>
+    <td><%= tutoring_session.start_time %></td>
+    <td><%= tutoring_session.end_time %></td>
+    <td><%= tutoring_session.date %></td>
+    <td><%= tutoring_session.description %></td>
+    <td><%= link_to 'Show', tutoring_session %></td>
+    <td><%= link_to 'Edit', edit_tutoring_session_path(tutoring_session) %></td>
+    <td><%= link_to 'Destroy', tutoring_session, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Tutoring session', new_tutoring_session_path %>
