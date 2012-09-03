@@ -1,4 +1,5 @@
 class TutoringSessionsController < ApplicationController
+  before_filter :authenticate_user!, except: [:index, :show]
   # GET /tutoring_sessions
   # GET /tutoring_sessions.json
   def index
@@ -25,7 +26,9 @@ class TutoringSessionsController < ApplicationController
   # GET /tutoring_sessions/new.json
   def new
     @tutoring_session = TutoringSession.new
-
+    #@tutoring_session = TutoringSession.new
+    #@tutoring_session.user_id = current_user.id if !current_user.nil?
+    @tutoring_session.description = "This is fun"
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @tutoring_session }

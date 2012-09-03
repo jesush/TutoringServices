@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(:version => 20120902230413) do
 
   create_table "courses", :force => true do |t|
-    t.string   "type"
+    t.string   "course_type"
     t.integer  "number"
     t.string   "name"
     t.integer  "section_number"
@@ -38,6 +38,8 @@ ActiveRecord::Schema.define(:version => 20120902230413) do
     t.time     "end_time"
     t.date     "date"
     t.string   "description"
+    t.integer  "user_id"
+    t.integer  "course_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
@@ -46,7 +48,7 @@ ActiveRecord::Schema.define(:version => 20120902230413) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "nick_name"
-    t.string   "type"
+    t.string   "user_type"
     t.string   "classification"
     t.string   "phone_number"
     t.datetime "created_at",                             :null => false

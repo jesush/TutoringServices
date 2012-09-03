@@ -6,6 +6,9 @@ class CreateTutoringSessions < ActiveRecord::Migration
       t.date :date
       t.string :description
 
+      t.integer :user_id
+      t.integer :course_id
+
       t.timestamps
     end
   end

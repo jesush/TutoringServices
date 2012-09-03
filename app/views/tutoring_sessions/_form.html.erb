@@ -15,6 +15,8 @@
     <%= f.label :start_time %><br />
     <%= f.time_select :start_time %>
   </div>
+
+  <%= f.collection_select :course_id, Course.all, :id, :name, :prompt => "Select Course" %>
   <div class="field">
     <%= f.label :end_time %><br />
     <%= f.time_select :end_time %>

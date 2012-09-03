@@ -1,0 +1,54 @@
+<div class="row">
+  	<div class="four columns">
+  	<%= f.label :first_name %>
+  <%= f.text_field :first_name,  placeholder: "First Name" %>
+  </div>
+  <div class="four columns">
+  	<%= f.label :last_name %>
+  <%= f.text_field :last_name, placeholder: "Last Name" %>
+  </div>
+  <div class="four columns">
+  	<%= f.label :nick_name %>
+  <%= f.text_field :nick_name, placeholder: "Nick Name (optional)"%>
+  </div>
+  </div>
+  
+
+  <div class="row">
+  	
+  	<div class="four columns">
+  	<%= f.label :user_type %>
+  	<%= f.select :user_type, "<option>Volunteer</option><option>Student</option><option>Instructor</option>".html_safe %>
+  </div>
+
+  
+  <div class="four columns end">
+  	<%= f.label :classification %>
+  	<%= f.select :classification, "<option>Undergrad</option><option>Alumni</option><option>Other</option>".html_safe %>
+  </div>
+
+  	
+  </div>
+  
+  
+  
+
+  <div class="row">
+
+  	<div class="four columns">
+  	<%= f.label :email %>
+  <%= f.text_field :email , type: "email", placeholder: "Email"%>
+  </div>
+  	<div class="four columns">
+  		<%= f.label :password %>
+  		<%= f.password_field :password, type: "password", placeholder: "Password" %>
+  	</div>
+  	<div class="four columns">
+  		<%= f.label :password_confirmation, placeholder: "Password" %>
+  		<%= f.password_field :password_confirmation, type: "password", placeholder: "Password Confirmation" %>
+  	</div>
+  
+</div>
+  
+
+  <div><%= f.submit "Sign up" %></div>

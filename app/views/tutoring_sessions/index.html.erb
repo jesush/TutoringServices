@@ -6,6 +6,8 @@
     <th>End time</th>
     <th>Date</th>
     <th>Description</th>
+    <th>User ID <%= current_user.id %></th>
+    <th>Course ID</th>
     <th></th>
     <th></th>
     <th></th>
@@ -17,6 +19,8 @@
     <td><%= tutoring_session.end_time %></td>
     <td><%= tutoring_session.date %></td>
     <td><%= tutoring_session.description %></td>
+    <td><%= tutoring_session.user_id %></td>
+    <td><%= tutoring_session.course_id %></td>
     <td><%= link_to 'Show', tutoring_session %></td>
     <td><%= link_to 'Edit', edit_tutoring_session_path(tutoring_session) %></td>
     <td><%= link_to 'Destroy', tutoring_session, method: :delete, data: { confirm: 'Are you sure?' } %></td>
