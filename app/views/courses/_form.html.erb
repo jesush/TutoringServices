@@ -11,46 +11,62 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :course_type %><br />
-    <%= f.text_field :course_type %>
+
+  <div class="row">
+    <div class="three columns">
+      <%= f.label :course_type %>
+      <%= f.text_field :course_type %>
+    </div>
+
+    <div class="three columns">
+      <%= f.label :number %>
+      <%= f.text_field :number %>
+    </div>
+
+    <div class="three columns">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="three columns">
+    <%= f.label :section_number %>
+    <%= f.text_field :section_number %>
   </div>
-  <div class="field">
-    <%= f.label :number %><br />
-    <%= f.number_field :number %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :section_number %><br />
-    <%= f.number_field :section_number %>
-  </div>
-  <div class="field">
-    <%= f.label :days %><br />
+
+    <div class="three columns">
+      <%= f.label :professor_id %>
+      <%= f.collection_select :professor_id, User.where(user_type: "Instructor"), :id, :last_name, :prompt => "Select Professor/Instructor" %>
+    </div>
+
+  
+  <div class="three columns">
+    <%= f.label :days %>
     <%= f.text_field :days %>
   </div>
-  <div class="field">
-    <%= f.label :semester %><br />
+
+  <div class="three columns last">
+    <%= f.label :semester %>
     <%= f.text_field :semester %>
   </div>
-  <div class="field">
-    <%= f.label :year %><br />
-    <%= f.number_field :year %>
+  <div class="two columns">
+    <%= f.label :year %>
+    <%= f.text_field :year %>
   </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_field :description %>
-  </div>
-  <div class="field">
-    <%= f.label :start_time %><br />
+  <div class="two columns">
+    <%= f.label :start_time %>
     <%= f.time_select :start_time %>
   </div>
-  <div class="field">
-    <%= f.label :end_time %><br />
+  <div class="two columns">
+    <%= f.label :end_time %>
     <%= f.time_select :end_time %>
   </div>
+
+  <div class="twelve columns">
+    <%= f.label :description %>
+    <%= f.text_area :description, rows: "10"%>
+  </div>
+</div>
+  
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -1,55 +1,30 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Type:</b>
-  <%= @course.course_type %>
-</p>
+<div class="row">
+  <div class="six columns class-meta">
+      <h3><%= @course.name %><small class="subheader"><%= 
+      "#{ @course.course_type } #{ @course.number } ##{ @course.section_number }" %></small></h3>
+      <span>Lecture Days: <%= @course.days %>  by <a href="<%= url_for(@course.professor) %>" class="secondary label"><%= "#{ User.find(@course.professor_id).first_name if !@course.professor_id.nil? } #{ User.find(@course.professor_id).last_name if !@course.professor_id.nil? }" %></a></span>
+      <p class="class-description"><%= @course.description %></p>
+  </div>
 
-<p>
-  <b>Number:</b>
-  <%= @course.number %>
-</p>
+  <div class="six columns class-tutoringsessions">
+    <h3 class="subheader">Latest Tutoring Sessions Available</h3>
+    <p>Below you will find a list of tutoring session, click on a time listing to find out more. </p>
 
-<p>
-  <b>Name:</b>
-  <%= @course.name %>
-</p>
+    <ul>
+      <% if !@course.tutoring_sessions.empty? && !current_user.nil? %>
 
-<p>
-  <b>Section number:</b>
-  <%= @course.section_number %>
-</p>
-
-<p>
-  <b>Days:</b>
-  <%= @course.days %>
-</p>
-
-<p>
-  <b>Semester:</b>
-  <%= @course.semester %>
-</p>
-
-<p>
-  <b>Year:</b>
-  <%= @course.year %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @course.description %>
-</p>
-
-<p>
-  <b>Start time:</b>
-  <%= @course.start_time %>
-</p>
-
-<p>
-  <b>End time:</b>
-  <%= @course.end_time %>
-</p>
-
+        <% @course.tutoring_sessions.each do |tutoring_session| %>
+        <li><%= " #{tutoring_session.date.strftime("%A %B %e, %G") } from #{ tutoring_session.start_time.strftime("%I:%M%p")} - #{ tutoring_session.end_time.strftime("%I:%M%p") } by" %> <a href="<%= url_for( User.find(tutoring_session.user_id)) %>" class="secondary label" title="<%= '#{ User.find(tutoring_session.user_id).first_name} #{User.find(tutoring_session.user_id).last_name}   is an #{ User.find(tutoring_session.user_id).classification }  at the University of Houston' %> "><%= " #{ User.find(tutoring_session.user_id).first_name } #{ User.find(tutoring_session.user_id).last_name } " %></a> </li>
+        <% end %>
+        <li><%= link_to "Tutor for this class. Create a Tutoring Session", new_tutoring_session_path(current_user.tutoring_sessions.create) %></li>
+      <% else %>
+        <li><%= link_to "Add A Class", new_tutoring_session_path(current_user.tutoring_sessions.create) if !current_user.nil? %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
 
 <%= link_to 'Edit', edit_course_path(@course) %> |
 <%= link_to 'Back', courses_path %>

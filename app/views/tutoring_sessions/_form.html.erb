@@ -11,24 +11,44 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :start_time %><br />
-    <%= f.time_select :start_time %>
+  <div class="row">
+    <div class="two columns">
+      <%= f.hidden_field :user_id %>
+      <%= f.label :start_time %>
+      <%= f.time_select :start_time %>
+    </div>
+    <div class="two columns">
+    <%= f.label :end_time %>
+    <%= f.time_select :end_time %>
+    </div>
+    <div class="three columns">
+    <%= f.label :date %>
+    <%= f.text_field :date %>
+    </div>
+    <div class="five columns">
+      <%= f.label :course_id %>
+      <%= f.collection_select :course_id, Course.all, :id, :name, :prompt => "Select Course" %>
+    </div>
+  <div class="twelve columns">
+    <%= f.label :description %>
+    <%= f.text_area :description, rows: "10" %>
   </div>
 
-  <%= f.collection_select :course_id, Course.all, :id, :name, :prompt => "Select Course" %>
-  <div class="field">
-    <%= f.label :end_time %><br />
-    <%= f.time_select :end_time %>
+  <div class="twelve columns">
+  <%= f.label :attendee_ids, "Attendees" %><br/>
+  <%= f.collection_select :attendee_ids, User.order(:first_name), :id, :full_name, {}, {multiple:true} %>
+
   </div>
-  <div class="field">
-    <%= f.label :date %><br />
-    <%= f.date_select :date %>
+
+
+
   </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_field :description %>
-  </div>
+  
+
+  
+  
+  
+
   <div class="actions">
     <%= f.submit %>
   </div>

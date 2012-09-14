@@ -1,4 +1,4 @@
-<%= form_for(@user) do |f| %>
+<%= form_for @user, url: users_path, html: { multipart: true } do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -11,34 +11,60 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :first_name %><br />
-    <%= f.text_field :first_name %>
+  <div class="row">
+  
+  <div class="upload-profile-picture">
+    <%= f.file_field :profile_image %>
   </div>
-  <div class="field">
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name %>
+    <div class="four columns">
+    <%= f.label :first_name %>
+  <%= f.text_field :first_name,  placeholder: "First Name" %>
   </div>
-  <div class="field">
-    <%= f.label :nick_name %><br />
-    <%= f.text_field :nick_name %>
+  <div class="four columns">
+    <%= f.label :last_name %>
+  <%= f.text_field :last_name, placeholder: "Last Name" %>
   </div>
-  <div class="field">
-    <%= f.label :user_type %><br />
-    <%= f.text_field :user_type %>
+  <div class="four columns">
+    <%= f.label :nick_name %>
+  <%= f.text_field :nick_name, placeholder: "Nick Name (optional)"%>
   </div>
-  <div class="field">
-    <%= f.label :classification %><br />
-    <%= f.text_field :classification %>
   </div>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
+  
+
+  <div class="row">
+    
+    <div class="four columns">
+    <%= f.label :user_type %>
+    <%= f.select :user_type, "<option>Volunteer</option><option>Student</option><option>Instructor</option>".html_safe %>
   </div>
-  <div class="field">
-    <%= f.label :phone_number %><br />
-    <%= f.text_field :phone_number %>
+
+  
+  <div class="four columns end">
+    <%= f.label :classification %>
+    <%= f.select :classification, "<option>Undergrad</option><option>Alumni</option><option>Other</option>".html_safe %>
   </div>
+
+    
+  </div>
+  
+
+  <div class="row">
+
+    <div class="four columns">
+    <%= f.label :email %>
+  <%= f.text_field :email , type: "email", placeholder: "Email"%>
+  </div>
+    <div class="four columns">
+      <%= f.label :password %>
+      <%= f.password_field :password, type: "password", placeholder: "Password" %>
+    </div>
+    <div class="four columns">
+      <%= f.label :password_confirmation, placeholder: "Password" %>
+      <%= f.password_field :password_confirmation, type: "password", placeholder: "Password Confirmation" %>
+    </div>
+  
+</div>
+  
   <div class="actions">
     <%= f.submit %>
   </div>

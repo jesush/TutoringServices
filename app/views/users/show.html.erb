@@ -1,39 +1,65 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>First name:</b>
-  <%= @user.first_name %>
-</p>
+<!-- User Panel -->
+<div class="panel user-panel row">
+  
+  <div class="user-panel-profile-brief six columns">
+    <div class="row">
+      <% if !@user.profile_image_file_name.nil? %>
+        <%= image_tag @user.profile_image.url(:medium), class: "three columns"  %>
+      <% else %>
+        <%= image_tag "default_avatar.png", class: "three columns" %>
+      <% end %>
+      <div class="nine columns">
+        <h3><a href="<%= url_for(@user) %>"><%= @user.first_name %> <%= @user.last_name %></a><% if !current_user.nil? %><span class="radius success label"><%= link_to 'Edit', edit_user_path(@user) %></span><span class="raidus alert label"><%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %></span><% end %></h3>
+    <span><%= @user.classification %></span>
+      </div>
+    </div>
+  
+  </div>
 
-<p>
-  <b>Last name:</b>
-  <%= @user.last_name %>
-</p>
+  <div class="user-panel-profile-details six columns">
+    <strong><%= @user.user_type %></strong> | 
+    <span class="subheader">Information</span>
+    <p>
+      <%= @user.user_type %> / <%= @user.classification %><br/>
+      <%= @user.email %><br/>
+      <%= @user.phone_number%><br/>
+    </p>
+  </div>
+</div>
+<!-- End User Panel -->
+<% if !current_user.nil? %>
+<div class="row">
+  <div class="six columns actions">
+    <h3>What would you like to do today?</h3>
+    <h4 class="subheader">You can add a tutoring session if you'd like, or you can add a course to the list of available courses.</h4>
+  <ul>
+    <li><%= link_to "Add A New Tutoring Session", new_tutoring_session_path %></li>
+    <li><%= link_to "New Class", new_course_path %></li>
+  </ul>
+  </div>
+  
+  <div class="six columns courses">
+    <h3>Your Tutoring Sessions</h3>
+    <p>Below is a list of the tutoring sessions that you've signed up to volunteer for.</p>
+    
+    <% if !@user.tutoring_sessions.empty? %>
+    <ul>
+      <% @user.tutoring_sessions.each do |tutoring_session| %>
+        <li><a href="<%= url_for(tutoring_session) %>" title=""><%= "#{Course.find(tutoring_session.course_id).name if !tutoring_session.course_id.nil?} | #{tutoring_session.start_time.strftime("%I:%M%p")} - #{tutoring_session.end_time.strftime("%I:%M%p")}" %></a></li>
+      <% end %>
+    </ul>
+    <a href="<%= url_for(new_tutoring_session_path(User.find(current_user).tutoring_sessions.create)) %>" class="radius success button">Don't Be Shy! Add Another Tutoring Session!</a>
+    <% else %>
+      <p>It seems that you haven't signed up for a tutoring session.</p>
+      <a href="<%= url_for(new_tutoring_session_path(User.find(current_user).tutoring_sessions.create)) %>" class="radius success button">Add A Tutoring Session</a>
+    <% end %>
 
-<p>
-  <b>Nick name:</b>
-  <%= @user.nick_name %>
-</p>
-
-<p>
-  <b>Type:</b>
-  <%= @user.type %>
-</p>
-
-<p>
-  <b>Classification:</b>
-  <%= @user.classification %>
-</p>
-
-<p>
-  <b>Email:</b>
-  <%= @user.email %>
-</p>
-
-<p>
-  <b>Phone number:</b>
-  <%= @user.phone_number %>
-</p>
+  </div>
+  <% end %>
+  
+</div>
 
 
 <%= link_to 'Edit', edit_user_path(@user) %> |

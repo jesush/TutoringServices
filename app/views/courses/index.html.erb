@@ -1,24 +1,81 @@
 <h1>Courses Available</h1>
-<p>Below you will find a list of courses that are available for tutoring sessions.</p>
+<h4 class="subheader">Number of courses available: <%= Course.all.count %>, Number of tutors: <%= User.where( user_type: "Volunteer" ).all.count %> </h4>
+<p>Below you will find a list of courses that are available for tuturing sessions. Click on each one to view more details about the course and available tutoring sessions.</p>
 
+<% if !current_user.nil? %>
+<ul class="button-group even three-up">
+  <li><a href="<%= url_for(new_course_path) %>" class="button">Add Course</a></li>
+  <li><a href="<%= url_for(new_tutoring_session_path) %>" class="button">Add Tutoring Session</a></li>
+</ul>
+<% end %>
 
-<div class="panel row">
-    <h3>Class Name | MW | 10pm - 1pm <span class="radius success label">Edit Course</span></h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-</div>
-
-<% @courses.each do |course| %>
+<dl class="tabs contained">
+  <dd class="active"><a href="#courses1">Courses</a></dd>
+  <dd><a href="#calendar2">Calendar of Sessions</a></dd>
+  <dd><a href="#tutoringsessions3">Tutoring Sessions</a></dd>
+</dl>
+<ul class="tabs-content contained">
+  <li class="active" id="courses1Tab"><% @courses.each do |course| %>
     <div class="panel row">
         <span class="secondary label"><%= course.number %></span>
-        <h3><a href="<%= url_for(course) %>"><%= course.name %></a> | <%= course.days %> | <%= "#{course.start_time} - #{course.end_time}" %> <span class="radius success label"><%= link_to 'Edit Course', edit_course_path(course) %></span><span class="radius alert label"><%= link_to 'Delete Course', course, method: :delete, data: { confirm: 'Are you sure?' } %></span></h3>
+        <h3><a href="<%= url_for(course) %>"><%= course.name %></a> | <%= course.days %> | <%= "#{course.start_time.strftime("%I:%M%p")} - #{course.end_time.strftime("%I:%M%p")}" %><% if !current_user.nil? %> <span class="radius success label"><%= link_to 'Edit Course', edit_course_path(course) %></span>
+            <span class="radius alert label"><%= link_to 'Delete Course', course, method: :delete, data: { confirm: 'Are you sure?' } %></span><% end %></h3>
         <p><%= course.description %></p>
+        <small>Latest Tutoring Sessions</small>
+        <p>Below is a list of upcoming tutoring sessions.</p>
+        <ul>
+            <% course.tutoring_sessions.each do |tutoring_session| %>
+            <li><a href="<%= url_for(tutoring_session) %>"><%= " #{tutoring_session.date.strftime("%A %B %e, %G") } from #{ tutoring_session.start_time.strftime("%I:%M%p")} - #{ tutoring_session.end_time.strftime("%I:%M%p") } by" %></a><a href="<%= url_for( User.find(tutoring_session.user_id)) %>" class="secondary label" title="<%= '#{ User.find(tutoring_session.user_id).first_name} #{User.find(tutoring_session.user_id).last_name}   is an #{ User.find(tutoring_session.user_id).classification }  at the University of Houston' %> "><%= " #{ User.find(tutoring_session.user_id).first_name } #{ User.find(tutoring_session.user_id).last_name } " %></a> </li>
+            <% end %>
+        </ul>
     </div>
-<% end %>
+<% end %></li>
+  <li id="calendar2Tab"><div class="calendar">
+    <h3><%= Date.today.strftime("%B") %></h3>
+    <%= calendar do |date| %>
+        <%= date.day %>
+        <% if @tutoring_sessions_by_date[date] %>
+        <ul>
+            <% @tutoring_sessions_by_date[date].each do |tutoring_session| %>
+                    <li><%= link_to "#{Course.find(tutoring_session.course_id).name} from #{tutoring_session.start_time.strftime("%I:%M%p")} to #{tutoring_session.end_time.strftime("%I:%M%p")}", tutoring_session %></li>
+            <% end %>
+        </ul>
+        <% end %>
+    <% end %>
+</div></li>
+  <li id="tutoringsessions3Tab">
+    <div class="row">
+      <h3>Tutoring Sessions</h3>
+    <p>Below is a complete list of tutoring sessions that are available.</p>
+
+    <% if !@tutoring_sessions.empty? %>
+
+    <ul class="six columns">
+      <% @tutoring_sessions.each do |tutoring_session| %>
+        <li><a href="<%= url_for(tutoring_session) %>" title=""><%= "#{Course.find(tutoring_session.course_id).name if !tutoring_session.course_id.nil?} | #{tutoring_session.start_time.strftime("%I:%M%p")} - #{tutoring_session.end_time.strftime("%I:%M%p")}" %></a></li>
+      <% end %>
+    </ul>
+    <% end %>
+
+    <% if !current_user.nil? %>
+    <div class="panel radius four columns">
+      <h5>You're a hero....</h5>
+      <p>Add another Tutoring session to your schedule. Help your fellow Computer Scientists...</p>
+      <a href="<%= url_for(new_tutoring_session_path(User.find(current_user).tutoring_sessions.create)) if !current_user.nil? %>" class="radius success button">Add A Tutoring Session</a>
+    </div>
+
+    <div class="panel callout radius six columns">
+    <h5>Don't Be Shy...</h5>
+    <p>It seems that you haven't signed up for a tutoring session.</p>
+      <a href="<%= url_for(new_tutoring_session_path(User.find(current_user).tutoring_sessions.create)) %>" class="radius success button">Add A Tutoring Session</a>
+    </div>
+    <% end %>
+
+    </div>
+    
+    </li>
+</ul>
+
 
 <br />
 

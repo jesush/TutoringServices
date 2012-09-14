@@ -1,9 +1,12 @@
 class CoursesController < ApplicationController
+  before_filter :authenticate_user!, except: [:index, :show]
   # GET /courses
   # GET /courses.json
   def index
     @courses = Course.all
-
+    @tutoring_sessions = TutoringSession.where("tutoring_sessions.date <= ?", (Date.today + 7))
+    @tutoring_sessions_by_date = TutoringSession.all.group_by(&:date)
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @courses }

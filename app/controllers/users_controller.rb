@@ -5,7 +5,10 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
-
+    @student_users = User.where(user_type: "Student" )
+    @instructor_users = User.where(user_type: "Instructor" )
+    @volunteer_users = User.where(user_type: "Volunteer" )
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @users }
@@ -42,7 +45,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(params[:user])
+    @user = User.create(params[:user])
 
     respond_to do |format|
       if @user.save

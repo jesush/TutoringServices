@@ -34,8 +34,11 @@
         <% end %>
 
         <ul class="nav-bar">
+          <li><%= link_to('My Profile', current_user) if user_signed_in? %></li>
           <li><%= link_to 'Courses', courses_path %></li>
-          <li><%= link_to 'Show Users', users_path %></li>
+          <li><%= link_to 'Tutoring Sessions', tutoring_sessions_path %></li>
+          <li><%= link_to('Users Dashboard', users_path) if user_signed_in?%></li>
+          
         </ul>
 
         </div>

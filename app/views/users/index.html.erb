@@ -1,5 +1,106 @@
-<h1>Listing users</h1>
+<h1>User Dashboard</h1>
+<h4 class="subheader">Here you can add, edit, and remove users. You can also see a list of existing users by type.</h4>
 
+<dl class="tabs contained">
+  <dd class="active"><a href="#simpleContained1">Volunteers</a></dd>
+  <dd><a href="#simpleContained2">Students</a></dd>
+  <dd><a href="#simpleContained3">Instructors</a></dd>
+  <dd><a href="#allusers4">All Users</a></dd>
+</dl>
+<ul class="tabs-content contained">
+  <li class="active" id="simpleContained1Tab"><h3>List of All Volunteers</h3>
+
+<table>
+  <tr>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Nick name</th>
+    <th>Type</th>
+    <th>Classification</th>
+    <th>Email</th>
+    <th>Phone number</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @volunteer_users.each do |user| %>
+  <tr>
+    <td><%= user.first_name %></td>
+    <td><%= user.last_name %></td>
+    <td><%= user.nick_name %></td>
+    <td><%= user.user_type %></td>
+    <td><%= user.classification %></td>
+    <td><%= user.email %></td>
+    <td><%= user.phone_number %></td>
+    <td><%= link_to 'Show', user %></td>
+    <td><%= link_to 'Edit', edit_user_path(user) %></td>
+    <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table></li>
+  <li id="simpleContained2Tab"><h3>List of All Students</h3>
+<table>
+  <tr>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Nick name</th>
+    <th>Type</th>
+    <th>Classification</th>
+    <th>Email</th>
+    <th>Phone number</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @student_users.each do |user| %>
+  <tr>
+    <td><%= user.first_name %></td>
+    <td><%= user.last_name %></td>
+    <td><%= user.nick_name %></td>
+    <td><%= user.user_type %></td>
+    <td><%= user.classification %></td>
+    <td><%= user.email %></td>
+    <td><%= user.phone_number %></td>
+    <td><%= link_to 'Show', user %></td>
+    <td><%= link_to 'Edit', edit_user_path(user) %></td>
+    <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table></li>
+  <li id="simpleContained3Tab"><h3>List of All Instructors</h3>
+
+<table>
+  <tr>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Nick name</th>
+    <th>Type</th>
+    <th>Classification</th>
+    <th>Email</th>
+    <th>Phone number</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @instructor_users.each do |user| %>
+  <tr>
+    <td><%= user.first_name %></td>
+    <td><%= user.last_name %></td>
+    <td><%= user.nick_name %></td>
+    <td><%= user.user_type %></td>
+    <td><%= user.classification %></td>
+    <td><%= user.email %></td>
+    <td><%= user.phone_number %></td>
+    <td><%= link_to 'Show', user %></td>
+    <td><%= link_to 'Edit', edit_user_path(user) %></td>
+    <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table></li>
+<li id="allusers4Tab"><h3>All Users</h3>
 <table>
   <tr>
     <th>First name</th>
@@ -28,7 +129,11 @@
     <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
-</table>
+</table></li>
+</ul>
+
+
+
 
 <br />
 

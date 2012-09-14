@@ -27,8 +27,8 @@ class TutoringSessionsController < ApplicationController
   def new
     @tutoring_session = TutoringSession.new
     #@tutoring_session = TutoringSession.new
-    #@tutoring_session.user_id = current_user.id if !current_user.nil?
-    @tutoring_session.description = "This is fun"
+    @tutoring_session.user_id = current_user.id if !current_user.nil?
+    @tutoring_session.start_time = Time.now
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @tutoring_session }
