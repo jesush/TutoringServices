@@ -3,7 +3,7 @@ TutoringServices::Application.routes.draw do
 
   devise_for :users
 
-  root :to => 'home#index'
+  root :to => 'courses#index'
 
   resources :tutoring_sessions
 
