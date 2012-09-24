@@ -1,0 +1,4 @@
+  <div class="twelve columns">
+  <%= f.label :attendee_ids, "Attendees" %><br/>
+  <%= f.collection_select :attendee_ids, User.order(:first_name), :id, :full_name, {}, {multiple:true} %>
+  </div>
