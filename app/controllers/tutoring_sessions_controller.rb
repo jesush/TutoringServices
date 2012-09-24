@@ -15,6 +15,8 @@ class TutoringSessionsController < ApplicationController
   # GET /tutoring_sessions/1.json
   def show
     @tutoring_session = TutoringSession.find(params[:id])
+    @course = Course.find(@tutoring_session.course_id)
+    @tutor = User.find(@tutoring_session.user_id)
 
     respond_to do |format|
       format.html # show.html.erb

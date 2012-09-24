@@ -14,9 +14,12 @@
     <th>Description</th>
     <th>Tutor ID</th>
     <th>Tutor Name</th>
+    
+    <th></th>
+    <% if !current_user.nil? %>
     <th></th>
     <th></th>
-    <th></th>
+    <% end %>
   </tr>
 
 <% @tutoring_sessions.each do |tutoring_session| %>
@@ -34,8 +37,10 @@
 
     
     <td><%= link_to 'Show', tutoring_session %></td>
+    <% if !current_user.nil? %>
     <td><%= link_to 'Edit', edit_tutoring_session_path(tutoring_session) %></td>
     <td><%= link_to 'Destroy', tutoring_session, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>

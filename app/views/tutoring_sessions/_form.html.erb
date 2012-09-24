@@ -1,4 +1,3 @@
-<%= form_for(@tutoring_session) do |f| %>
   <% if @tutoring_session.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@tutoring_session.errors.count, "error") %> prohibited this tutoring_session from being saved:</h2>
@@ -15,41 +14,30 @@
     <div class="two columns">
       <%= f.hidden_field :user_id %>
       <%= f.label :start_time %>
-      <%= f.time_select :start_time %>
+      <%= f.time_select :start_time, :ampm => true %>
     </div>
     <div class="two columns">
     <%= f.label :end_time %>
-    <%= f.time_select :end_time %>
+    <%= f.time_select :end_time , :ampm => true%>
     </div>
     <div class="three columns">
     <%= f.label :date %>
-    <%= f.text_field :date %>
+    <%= f.text_field :date, placeholder: "Date"%>
     </div>
-    <div class="five columns">
+    <div class="two columns">
       <%= f.label :course_id %>
       <%= f.collection_select :course_id, Course.all, :id, :name, :prompt => "Select Course" %>
+    </div>
+    <div class="three columns">
+      <%= f.label :location %>
+      <%= f.text_field :location , placeholder: "Location"%>
     </div>
   <div class="twelve columns">
     <%= f.label :description %>
     <%= f.text_area :description, rows: "10" %>
   </div>
 
-  <div class="twelve columns">
-  <%= f.label :attendee_ids, "Attendees" %><br/>
-  <%= f.collection_select :attendee_ids, User.order(:first_name), :id, :full_name, {}, {multiple:true} %>
-
-  </div>
-
 
 
   </div>
   
-
-  
-  
-  
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>

@@ -26,5 +26,5 @@
   </div>
 </div>
 
-<%= link_to 'Edit', edit_course_path(@course) %> |
+<%= link_to 'Edit', edit_course_path(@course) if !current_user.nil? %> 
 <%= link_to 'Back', courses_path %>

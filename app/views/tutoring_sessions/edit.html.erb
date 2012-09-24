@@ -1,7 +1,12 @@
 <h1>Editing Tutoring Session</h1>
 
-<%= render 'form' %>
-
+<%= form_for(@tutoring_session) do |f| %>
+<%= render 'form' , f: f %>
+<%= render 'attendees', f: f %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
 
 <%= link_to 'Show', @tutoring_session %> |
 <%= link_to 'Back', tutoring_sessions_path %>
